@@ -27,7 +27,7 @@ For project two, we were tasked with identifying two or more sets of data to Ext
     2. Weather data:  We purchased historical weather data via the [OpenWeatherMaps API](https://openweathermap.org/history-bulk) for the city of Chicago. According to the OpenWeatherMaps API documentation, the data file includes 18 different weather parameters and hourly data can be extracted, which we will use.
 
 * Database:<br>
-    We will use PostgreSQL, a relational database, for our final production database.
+    We will use SQLite, a relational database, for our final production database.
 
 * Potential Use Cases:<br>
     To determine whether there is a correlation between weather and select crime data. We hypothesize that there are specific crime patterns that may be more prevalent during periods where the temperature is higher.  An interested business or resource could use weather forecast data to deploy more patrols on days when the heat index is higher.  Perhaps officers can be reduced in those areas where crime is less these days and deployed to crime pockets (hot spots) in the city. 
@@ -119,8 +119,36 @@ For project two, we were tasked with identifying two or more sets of data to Ext
 
 <a name="load"></a>
 ### Data Load
-We used SQLAlchemy to load our final DataFrame into a PostgreSQL database. We decided upon uploading the data as one table instead of separate crime and weather data in order to provide an easier way for a client to query our database. They do not need to perform any joins in order to use our data. The schemata for our database can be found [here](Resources/schemata.sql). The only table in our database is named crime_weather, and it contains all columns from our final DataFrame with appropriate value types assigned.
+We used SQLAlchemy to load our final DataFrame into an SQLite database. We decided upon uploading the data as one table instead of separate crime and weather data in order to provide an easier way for a client to query our database. They do not need to perform any joins in order to use our data. 
 
-The data is ready to be filtered or queried in any way the client sees fit; however, we...*insert reason this topic was chosen here*
+The class schema for our SQLite database:
+```
+class CW(Base):
+    __tablename__ = 'crime_weather'
+    id = Column(Integer, primary_key=True)
+    local_dt = Column(String(255))
+    exact_dt = Column(String(255))
+    primary_type = Column(String(255))
+    description = Column(String(255))
+    location_description = Column(String(255))
+    arrest = Column(Boolean)
+    domestic = Column(Boolean)
+    temp_F = Column(Float)
+    feels_like_F = Column(Float)
+    temp_min_F = Column(Float)
+    temp_max_F = Column(Float)
+    pressure_hPa = Column(Float)
+    humidity_percent = Column(Float)
+    wind_speed_mph = Column(Float)
+    wind_deg = Column(Float)
+    rain_1h_inches = Column(Float)
+    snow_1h_inches = Column(Float)
+    clouds_percent = Column(Float)
+    weather_id = Column(String(255))
+    weather_main = Column(String(255))
+    weather_description = Column(String(255))
+```
 
-![pic title](pic_link)
+Our database is stored in [crime_weather.sqlite.zip](https://drive.google.com/file/d/18gTA-tWKAu1Ti16dY9xdhIZKTzNTQKUi/view?usp=sharing) because the un-compressed verison of the file was too large to upload to GitHub. The only table in our database is named crime_weather, and it contains all columns from our final DataFrame with appropriate value types assigned.
+
+The data is ready to be filtered or queried in any way the client sees fit; however, we recommend investigating correlations between temperature and/or weather condition and crime frequency and severity.  We hypothesize that there are specific crime patterns that may be more prevalent during periods where the temperature is higher.  An interested business or resource could use weather forecast data to deploy more patrols on days when the heat index is higher.  Perhaps officers can be reduced in those areas where crime is less these days and deployed to crime pockets (hot spots) in the city. 
