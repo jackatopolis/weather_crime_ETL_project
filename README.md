@@ -149,6 +149,6 @@ class CW(Base):
     weather_description = Column(String(255))
 ```
 
-Our database is stored in [crime_weather.sqlite.zip](https://drive.google.com/file/d/18gTA-tWKAu1Ti16dY9xdhIZKTzNTQKUi/view?usp=sharing) because the un-compressed verison of the file was too large to upload to GitHub. The only table in our database is named crime_weather, and it contains all columns from our final DataFrame with appropriate value types assigned.
+Our database is stored in <a href="https://drive.google.com/file/d/18gTA-tWKAu1Ti16dY9xdhIZKTzNTQKUi/view?usp=sharing" target="_blank">crime_weather.sqlite.zip</a> because the un-compressed verison of the file was too large to upload to GitHub. The only table in our database is named crime_weather, and it contains all columns from our final DataFrame with appropriate value types assigned.
 
 The data is ready to be filtered or queried in any way the client sees fit; however, we recommend investigating correlations between temperature and/or weather condition and crime frequency and severity.  We hypothesize that there are specific crime patterns that may be more prevalent during periods where the temperature is higher.  An interested business or resource could use weather forecast data to deploy more patrols on days when the heat index is higher.  Perhaps officers can be reduced in those areas where crime is less these days and deployed to crime pockets (hot spots) in the city. 
