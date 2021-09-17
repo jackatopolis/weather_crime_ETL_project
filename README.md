@@ -64,7 +64,7 @@ The primary goal of the project was to identify two or more data sources that we
     * location: latitude and longitude of incident location (tuple of floats)<br>
 
 2. Weather data:<br>
-    To obtain historical weather data consistent with the reporting quality of the City of Chicago crime data, we utilized the [History Bulk](https://openweathermap.org/history-bulk) option on OpenWeatherMap API. The data option came with a $10 fee, which enabled us to obtain 15 different weather parameters collected hourly over the past 40 years.  Our data reported was limited to the City of Chicago. After the purchase, we received a [CSV file](Resources/chicago-hourly-weather-1980-2021.csv), which was later transformed into a Pandas DataFrame.<br><br>
+    To obtain historical weather data consistent with the reporting quality of the City of Chicago crime data, we utilized the [History Bulk](https://openweathermap.org/history-bulk) option on OpenWeatherMap API. The data option came with a $10 fee, which enabled us to obtain 25 different weather parameters collected hourly over the past 40 years.  Our data reported was limited to the City of Chicago. After the purchase, we received a [CSV file](Resources/chicago-hourly-weather-1980-2021.csv), which was later transformed into a Pandas DataFrame.<br><br>
     The original dataset features 25 columns:<br>
     * city_name: the city name, which in this case will be Chicago for all records (string)<br>
     * lat: latitude coordinate for location, which in this case will be the same for all records (float)<br>
@@ -114,12 +114,12 @@ The primary goal of the project was to identify two or more data sources that we
     * Changed columns to list form in order to remove duplicate time stamps: weather_id, weather_main, weather_description<br>
 
 3. Joining data:<br>
-    * Used Pandas to left merge the crime DataFrame and weather DataFrame on the "local_dt" column - The left merge allows us to keep all rows of crime data but drop any rows of weather data that do not have associated crimes.<br>
-    * This merge leaves us with the following columns for our final DataFrame: local_dt, exact_dt, primary_type, description, location_description, arrest, domestic, temp_F, feels_like_F, temp_min_F, temp_max_F, pressure_hPa, humidity_percent, wind_speed_mph, wind_deg, rain_1h_inches, snow_1h_inches, clouds_percent, weather_id, weather_main, weather_description<br>
+    * Used Pandas to left merge the crime and weather DataFrames on the "local_dt" column - The left merge option allowed us to keep all rows of crime data but drop any non-merged weather data rows.<br>
+    * We retained the following columns for our final DataFrame: local_dt, exact_dt, primary_type, description, location_description, arrest, domestic, temp_F, feels_like_F, temp_min_F, temp_max_F, pressure_hPa, humidity_percent, wind_speed_mph, wind_deg, rain_1h_inches, snow_1h_inches, clouds_percent, weather_id, weather_main, weather_description<br>
 
 <a name="load"></a>
 ### Data Load
-We used SQLAlchemy to load our final DataFrame into an SQLite database. We decided upon uploading the data as one table instead of separate crime and weather data in order to provide an easier way for a client to query our database. They do not need to perform any joins in order to use our data. 
+We used SQLAlchemy to load our final DataFrame into an SQLite database. We decided upon uploading the data as one table instead of separate crime and weather data to provide an easier way for a client to query our database. They do not need to perform any joins to use our data. 
 
 The class schema for our SQLite database:
 ```
@@ -151,4 +151,4 @@ class CW(Base):
 
 Our database is stored in <a href="https://drive.google.com/file/d/18gTA-tWKAu1Ti16dY9xdhIZKTzNTQKUi/view?usp=sharing" target="_blank">crime_weather.sqlite.zip</a> because the un-compressed verison of the file was too large to upload to GitHub. The only table in our database is named crime_weather, and it contains all columns from our final DataFrame with appropriate value types assigned.
 
-The data is ready to be filtered or queried in any way the client sees fit; however, we recommend investigating correlations between temperature and/or weather condition and crime frequency and severity.  We hypothesize that there are specific crime patterns that may be more prevalent during periods where the temperature is higher.  An interested business or resource could use weather forecast data to deploy more patrols on days when the heat index is higher.  Perhaps officers can be reduced in those areas where crime is less these days and deployed to crime pockets (hot spots) in the city. 
+The data is ready to be filtered, queried, and analyzed in any way the client sees fit; however, we recommend investigating associations between temperature and/or weather and crime frequency and severity.  We hypothesize a significant and positive association between specific crime patterns and higher temperatures. As discussed above, these data may one day serve as a use case for deriving weather-related police and patrol deployment algorithms.  Such efforts have the potential to minimize crime and allocate resources when they are needed most.  
