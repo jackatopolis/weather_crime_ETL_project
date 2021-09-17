@@ -23,14 +23,14 @@ The primary goal of the project was to identify two or more data sources that we
 <a name="Proposal"></a>
 ## Proposal
 * Data identification:<br>
-    1. Chicago crime data: The original data was identified from the [Kaggle data set site](https://www.kaggle.com/chicago/chicago-crime).  According to the data documentation, the data was extracted from the Chicago Police Department data. For the purposes of this study, we will focus on select crimes.<br>
-    2. Weather data:  We purchased historical weather data via the [OpenWeatherMaps API](https://openweathermap.org/history-bulk) for the city of Chicago. According to the OpenWeatherMaps API documentation, the data file includes 18 different weather parameters and hourly data can be extracted, which we will use.
+    1. Chicago crime data: The original data was identified from the [Kaggle data set site](https://www.kaggle.com/chicago/chicago-crime).  According to the data documentation, the data was extracted from the Chicago Police Department data. <br>
+    2. Weather data:  We purchased historical weather data via the [OpenWeatherMaps API](https://openweathermap.org/history-bulk) for the city of Chicago. According to the OpenWeatherMaps API documentation, the data file includes 18 different weather parameters and hourly data can be extracted.
 
 * Database:<br>
     We will use SQLite, a relational database, for our final production database.
 
 * Potential Use Cases:<br>
-    To determine whether there is a correlation between weather and select crime data. We hypothesize that there are specific crime patterns that may be more prevalent during periods where the temperature is higher.  An interested business or resource could use weather forecast data to deploy more patrols on days when the heat index is higher.  Perhaps officers can be reduced in those areas where crime is less these days and deployed to crime pockets (hot spots) in the city. 
+    To determine whether there is an association between weather and select crime data. We hypothesize that specific crime patterns may be more prevalent during periods of high temperatures.  If there are positive associations between temperature and crime, data scientists could develop officer patrol algorithms to inform the Chicago Police Department and their patrol strategies.  
 
 <a name="Report"></a>
 ## Report
@@ -38,7 +38,7 @@ The primary goal of the project was to identify two or more data sources that we
 <a name="extraction"></a>
 ### Data Extraction
 1. Chicago crime data:<br>
-    We idientified the [Chicago Crime dataset](https://www.kaggle.com/chicago/chicago-crime) on Kaggle, and used BigQuery Storage API to extract the data into a Pandas DataFrame. This requires a special BigQuery Storage API key json file, which should be saved in the same file location as the notebook and should be named "apikey.json". The data within this dataset was extracted from the Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system.  Privacy is respected with this dataset by showing location on block level only. Additionally, the preliminary crime classification for a record may be changed at any time due to investigation outcomes, human error, or other. The dataset is updated daily, and the data is collected from 2001 to present, minus the most recent seven days.<br><br>
+    We idientified the [Chicago Crime dataset](https://www.kaggle.com/chicago/chicago-crime) on Kaggle. and used BigQuery Storage API to extract the data into a Pandas DataFrame. This requires a special BigQuery Storage API key json file, which should be saved in the same file location as the notebook and should be named "apikey.json". The data within this dataset was extracted from the Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system.  Privacy is respected with this dataset by showing location on block level only. Additionally, the preliminary crime classification for a record may be changed at any time due to investigation outcomes, human error, or other. The dataset is updated daily, and the data is collected from 2001 to present, minus the most recent seven days.<br><br>
     The original dataset features 22 columns:<br>
     * unique_key: a unique identifier for each record, where a record is defined as a reported incident of a crime (integer)<br>
     * case_number: Chicago Police Department Records Division Number (string)<br>
