@@ -18,7 +18,7 @@
 
 <a name="introduction"></a>
 ## Introduction
-For project two, we were tasked with identifying two or more sets of data to Extract (E), Transform (T), and Load (L) into a final production database.  After looking through some of the many available datasets, we decided upon utilizing Chicago Crime Data in conjunction with Historical Weather Data in order to build a database that could be used to analyze crime and weather conditions. We will utilize the principles of ETL to build our final production database, and our process is thoroughly outlined in the [Report](#report) section.
+The primary goal of the project was to identify two or more data sources that we would Extract (E), Transform (T), and Load (L) into a final production database.  We explored publically available datasets and chose historical Chicago Crime and weather data. The final product can be used to examine associations between criminal activity and weather conditions. We utilized the principles of ETL to deriving a final product, which was described in the [Report](#report) section.
 
 <a name="Proposal"></a>
 ## Proposal
