@@ -38,7 +38,7 @@ The primary goal of the project was to identify two or more data sources that we
 <a name="extraction"></a>
 ### Data Extraction
 1. Chicago crime data:<br>
-    We idientified the [Chicago Crime dataset](https://www.kaggle.com/chicago/chicago-crime) on Kaggle. and used BigQuery Storage API to extract the data into a Pandas DataFrame. This requires a special BigQuery Storage API key json file, which should be saved in the same file location as the notebook and should be named "apikey.json". The data within this dataset was extracted from the Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system.  Privacy is respected with this dataset by showing location on block level only. Additionally, the preliminary crime classification for a record may be changed at any time due to investigation outcomes, human error, or other. The dataset is updated daily, and the data is collected from 2001 to present, minus the most recent seven days.<br><br>
+    We idientified the [Chicago Crime dataset](https://www.kaggle.com/chicago/chicago-crime) on Kaggle. The data was extracted from BigQuery Storage API and transformed into a Pandas. There were several steps involved in extracting these data.  In particular, we registered for an API key, which had to be saved and stored as a file named "apikey.json" in the same folder as the Jupyter Notebook file. The original crime data were derived from the Chicago Police Department's CLEAR (Citizen Law Enforcement Analysis and Reporting) system.  The CLEAR system provides data at the block level to ensure confidentiality.   Additionally, the preliminary crime classification is subject to change as errors are corrected and the status of an investigation changes.  CLEAR system data is updated daily and available from 2001 to the prior 7days (i.e., reporting lag).<br><br>
     The original dataset features 22 columns:<br>
     * unique_key: a unique identifier for each record, where a record is defined as a reported incident of a crime (integer)<br>
     * case_number: Chicago Police Department Records Division Number (string)<br>
@@ -64,7 +64,7 @@ The primary goal of the project was to identify two or more data sources that we
     * location: latitude and longitude of incident location (tuple of floats)<br>
 
 2. Weather data:<br>
-    In order to get thorough historical weather data to compare against our crime data, we decided to use the [History Bulk](https://openweathermap.org/history-bulk) option on OpenWeatherMap API. This option provided us with over 40 years of historical data, including 15 weather parameters recorded hourly, for only $10 per location. Since we are only looking at crime data for Chicago, we also pulled the weather data for only Chicago. After purchasing the data, we received the data as a [CSV file](Resources/chicago-hourly-weather-1980-2021.csv). We then used Pandas to read the CSV into a DataFrame.<br><br>
+    To obtain historical weather data consistent with the reporting quality of the City of Chicago crime data, we utilized the [History Bulk](https://openweathermap.org/history-bulk) option on OpenWeatherMap API. The data option came with a $10 fee, which enabled us to obtain 15 different weather parameters collected hourly over the past 40 years.  Our data reported was limited to the City of Chicago. After the purchase, we received a [CSV file](Resources/chicago-hourly-weather-1980-2021.csv), which was later transformed into a Pandas DataFrame.<br><br>
     The original dataset features 25 columns:<br>
     * city_name: the city name, which in this case will be Chicago for all records (string)<br>
     * lat: latitude coordinate for location, which in this case will be the same for all records (float)<br>
@@ -95,7 +95,7 @@ The primary goal of the project was to identify two or more data sources that we
 <a name="transormation"></a>
 ### Data Transformation
 1. Chicago crime data:<br>
-    * Removed columns due to repetitiveness or not useful for analysis: case_number, block, icur, beat, district, ward, community_area, fbi_code, x_coordinate, y_coordinate, latitude, longitude, location, year, updated_on<br>
+    * Removed columns not needed for our hypothetical analysis: case_number, block, icur, beat, district, ward, community_area, fbi_code, x_coordinate, y_coordinate, latitude, longitude, location, year, updated_on<br>
     * Adjusted "date" column to match YY-MM-DD HH:MM format in order to match entries with weather data (saved as exact_dt column)<br>
     * Rounded time stamp to nearest hour in order to match entries with weather data (saved as local_dt column)<br>
     * Dropped "date" column after using<br>
